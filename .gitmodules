@@ -1,0 +1,3 @@
+[submodule "test-projects/pipeline"]
+	path = test-projects/pipeline
+	url = git@github.com:allenai/pipeline.git
