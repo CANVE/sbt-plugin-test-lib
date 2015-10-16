@@ -11,6 +11,7 @@ object BuildSettings {
     libraryDependencies ++= Seq(
       "canve" %% "compiler-plugin" % "0.0.1",
       "org.scala-lang" % "scala-compiler" % scalaVersion.value % "provided", // otherwise cannot use scala.tools.nsc.io.File
+      "org.fusesource.jansi" % "jansi" % "1.4",
       "com.lihaoyi" %% "utest" % "0.3.1" % "test"
     ),
     
