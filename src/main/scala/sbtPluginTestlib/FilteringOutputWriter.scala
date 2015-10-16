@@ -4,13 +4,14 @@ import java.io.{PrintWriter, BufferedWriter, OutputStreamWriter, FileOutputStrea
 import org.fusesource.jansi.AnsiOutputStream
 import scala.sys.process._
 import java.io.File
+import printUtil._
 
 /*
  * Takes care of routing a process's stdout and stderr to a file, being a proper 
  * ProcessorLogger callback object for Scala's ProcessBuilder methods. Inspired by 
  * the original FileProcessorLogger in scala.sys.process.
  */
-class FilteringOutputWriter(outFile: File) extends ProcessLogger {
+class FilteringOutputWriter(outFile: File, timeString: String) extends ProcessLogger {
   
   private val ansiFilteringStream = new AnsiOutputStream(new FileOutputStream(outFile, true))
   
@@ -24,7 +25,7 @@ class FilteringOutputWriter(outFile: File) extends ProcessLogger {
     )
   )  
   
-  writer.println("Following is the stdout and stderr output of the sbt process started on ")
+  writer.println(wrap("Following is the stdout and stderr output of the sbt process started on " + timeString))
   
   def out(s: ⇒ String): Unit = {
     writer.println(s)

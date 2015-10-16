@@ -5,16 +5,14 @@ package org.canve.sbtPluginTestLib
  */
 object Summary {
   def apply(results: Array[Result]) = {
-    println(Console.YELLOW + Console.BOLD + "\n\n Summary \n---------\n")
+    println(Console.YELLOW + Console.BOLD + "\n\n  Summary  \n-----------")
     
     val output = results map { result => 
-      Console.BOLD + "[" + 
-      Console.YELLOW + result.project.name + 
-      " => " +
-      Console.BOLD + (result.result match {
-        case true =>  "Ok"
-        case false => Console.RED + "Failed" + Console.YELLOW
-      }) + Console.WHITE + "]" +
+      Console.BOLD +  
+      (result.result match {
+        case true =>  Console.GREEN + "Worked Ok for project " + result.project.name
+        case false => Console.RED   + "Failed for project "    + result.project.name
+      }) + Console.RESET + elapsed(result.elapsed) +
       Console.RESET
     }
     
@@ -22,4 +20,6 @@ object Summary {
     
     println()
   }
+  
+  private def elapsed(time: Long) = f" (took $time%,.0f milliseconds)" 
 }
