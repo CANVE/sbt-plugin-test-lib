@@ -6,7 +6,7 @@ import scala.sys.process._
 
 /*
  * Runs canve for each project included under the designated directory, 
- * by adding the canve sbt plugin to the project's sbt definition.
+ * by adding the canve sbt plugin to the project's sbt setup.
  * 
  * Arguments to the app may constrict execution, as commented inline.   
  */
@@ -44,14 +44,30 @@ object Runner extends App {
   
   Summary(results)
   
+  
+  /*
+   * runs `sbt canve` over a given project, first adding the canve sbt plugin to the project's sbt setup
+   * for that sake.  
+   */
   private def injectAndTest(project: Project) = {
-    // add the plugin to the project's sbt setup
-    scala.tools.nsc.io.File(project.dirObj.toString + File.separator + "project/canve.sbt")
+
+    /*
+     * add the plugin to the project's sbt setup
+     */
+    
+    val sbtProjectDir = project.dirObj.toString + File.separator + "project"
+    
+    scala.tools.nsc.io.Path(sbtProjectDir).createDirectory(failIfExists = false)
+    
+    scala.tools.nsc.io.File(sbtProjectDir + File.separator + "canve.sbt")
       .writeAll("""addSbtPlugin("canve" % "sbt-plugin" % "0.0.1")""" + "\n")      
      
     val outStream = new FilteringOutputWriter(RedirectionMapper(project), (new java.util.Date).toString) 
       
-    // run sbt for the project and check for success exit code
+    /*
+     *  run sbt for the project and check for success exit code
+     */
+    
     val result = TimedExecution {
       Process(Seq("sbt", "-Dsbt.log.noformat=true", "canve"), project.dirObj) ! outStream == 0 match {
         case true  => Okay
