@@ -5,6 +5,8 @@ package org.canve.sbtPluginTestLib
  */
 object RedirectionMapper {
   def apply(project: Project) = {
-    new java.io.File(project.name + ".out")
+    ReadyOutFile("out", project.name + ".out")
   }
 }
+
+

@@ -4,7 +4,7 @@ import java.io.{PrintWriter, BufferedWriter, OutputStreamWriter, FileOutputStrea
 import org.fusesource.jansi.AnsiOutputStream
 import scala.sys.process._
 import java.io.File
-import printUtil._
+import PrintUtil._
 
 /*
  * Takes care of routing a process's stdout and stderr to a file, being a proper 
