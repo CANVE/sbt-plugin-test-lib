@@ -10,9 +10,15 @@ object Summary {
     val output = results map { result => 
       Console.BOLD +  
       (result.result match {
-        case true =>  Console.GREEN + "Worked Ok for project " + result.project.name
-        case false => Console.RED   + "Failed for project "    + result.project.name
-      }) + Console.RESET + elapsed(result.elapsed) +
+        case Okay =>  
+          Console.GREEN + "Worked Ok for project " + result.project.name +
+          Console.RESET + elapsed(result.elapsed)
+        case Failure => 
+          Console.RED   + "Failed for project " + result.project.name +
+          Console.RESET + elapsed(result.elapsed)
+        case Skipped => 
+          Console.YELLOW  + "Skipped testing against project " + result.project.name
+      }) +
       Console.RESET
     }
     

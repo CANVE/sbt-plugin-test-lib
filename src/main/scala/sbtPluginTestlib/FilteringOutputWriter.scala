@@ -11,15 +11,19 @@ import printUtil._
  * ProcessorLogger callback object for Scala's ProcessBuilder methods. Inspired by 
  * the original FileProcessorLogger in scala.sys.process.
  */
-class FilteringOutputWriter(outFile: File, timeString: String) extends ProcessLogger {
+
+class Dummy(outFile: File) extends FileProcessLogger(outFile)
+
+class FilteringOutputWriter(outFile: File, timeString: String) 
+  extends ProcessLogger with Closeable with Flushable {
   
-  private val ansiFilteringStream = new AnsiOutputStream(new FileOutputStream(outFile, true))
+  val fileOutputStream = new FileOutputStream(outFile, true)
   
   private val writer = (
     new PrintWriter(
       new BufferedWriter(
         new OutputStreamWriter(
-          ansiFilteringStream
+          new AnsiOutputStream(fileOutputStream)
         )
       )
     )
@@ -37,5 +41,8 @@ class FilteringOutputWriter(outFile: File, timeString: String) extends ProcessLo
     print("..error..")  
   }
   
-  def buffer[T](f: => T): T = f  
+  def buffer[T](f: => T): T = f
+  
+  def close(): Unit = writer.close()
+  def flush(): Unit = writer.flush()
 }
