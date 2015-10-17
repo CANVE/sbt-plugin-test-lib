@@ -1,4 +1,4 @@
-package org.canve.sbtPluginTestLib
+package org.canve.sbtPluginTestLib.util
 
 object PrintUtil {
   def wrap(text: String, char: Char = '-'): String = {

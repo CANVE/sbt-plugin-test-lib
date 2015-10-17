@@ -3,6 +3,8 @@ package org.canve.sbtPluginTestLib
 import org.canve.util.CanveDataIO
 import java.io.{File}
 import scala.sys.process._
+import util.TimedExecution
+import util.ReadyOutFile
 
 /*
  * Runs canve for each project included under the designated directory, 

@@ -1,4 +1,6 @@
-package org.canve.sbtPluginTestLib
+package org.canve.sbtPluginTestLib.util
+
+import java.io.File
 
 object ReadyOutFile {
   import java.io.File
