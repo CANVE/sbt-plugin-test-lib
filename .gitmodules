@@ -1,3 +1,3 @@
-[submodule "test-projects/pipeline"]
-	path = test-projects/pipeline
+[submodule "src/main/resources/test-projects/pipeline"]
+	path = src/main/resources/test-projects/pipeline
 	url = git@github.com:allenai/pipeline.git

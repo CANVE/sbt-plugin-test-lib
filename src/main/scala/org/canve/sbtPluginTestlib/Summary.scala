@@ -4,7 +4,7 @@ package org.canve.sbtPluginTestLib
  * Summary Output formatter
  */
 object Summary {
-  def apply(results: Array[Result]) = {
+  def apply(results: List[Result]) = {
     println(Console.YELLOW + Console.BOLD + "\n\n  Summary  \n-----------")
     
     val output = results map { result => 

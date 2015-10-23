@@ -14,8 +14,11 @@ import util.ReadyOutFile
  */
 object Runner extends App {
   
-  val testProjectsRoot = "test-projects"
+  //val testProjectsRoot = "test-projects"
+  val testProjectsRoot: String = getClass.getResource("/test-projects").getFile
   
+  println(new File(".").getAbsolutePath)
+  println(CanveDataIO.getSubDirectories(testProjectsRoot))
   val results = CanveDataIO.getSubDirectories(testProjectsRoot) map { projectDirObj =>
     val project = Project(projectDirObj, projectDirObj.getName)
     
